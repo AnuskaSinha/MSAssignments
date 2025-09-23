@@ -67,23 +67,23 @@ public class FunctionalInterfaceEx {
 			emp.setSalary(emp.getSalary() + (emp.getSalary() * sal / 100));
 			return emp;
 		};
-		
+
 		Function<Double, UnaryOperator<Employee>> salIncrement = per -> emp -> {
 			emp.setSalary(emp.getSalary() + (emp.getSalary() * per / 100));
 			return emp;
 		};
-		
-		BinaryOperator<Employee> maxSalaryEmployee = (e1,e2)-> e1.getSalary()>=e2.getSalary()?e1:e2;
-		
-		Supplier<Map<String,Double>> generateBonus = () ->{
+
+		BinaryOperator<Employee> maxSalaryEmployee = (e1, e2) -> e1.getSalary() >= e2.getSalary() ? e1 : e2;
+
+		Supplier<Map<String, Double>> generateBonus = () -> {
 			Map<String, Double> bonusMap = new HashMap<>();
-            bonusMap.put("IT", 1000.0);
-            bonusMap.put("HR", 800.0);
-            bonusMap.put("Finance", 1200.0);
-            return bonusMap;
+			bonusMap.put("IT", 1000.0);
+			bonusMap.put("HR", 800.0);
+			bonusMap.put("Finance", 1200.0);
+			return bonusMap;
 		};
-		
-		Function<Employee,Employee> addBonusToSalary = emp ->{
+
+		Function<Employee, Employee> addBonusToSalary = emp -> {
 			emp.setSalary(generateBonus.get().get(emp.getDept()) + emp.getSalary());
 			return emp;
 		};
@@ -115,7 +115,7 @@ public class FunctionalInterfaceEx {
 				.filter(e -> empWithReqDeptUsingBP.test(e, dept)).forEach(printEmp);
 		System.out.println("--------------------------------------------");
 
-		// Q5. Employee to User 
+		// Q5. Employee to User
 		System.out.println("Generating User from Employee");
 		employees.stream().map(empToUser).forEach(printUser);
 		System.out.println("--------------------------------------------");
@@ -154,7 +154,6 @@ public class FunctionalInterfaceEx {
 			System.out.println(e);
 		});
 		System.out.println("--------------------------------------------");
-		
 
 		// Q8. Unary Operator to perform increment of salary
 		System.out.println("Unary Operator to perform increment of salary");
@@ -165,26 +164,29 @@ public class FunctionalInterfaceEx {
 		UnaryOperator<Employee> empHike = salIncrement.apply(incSalary);
 		employees.stream().filter(e -> empWithReqIdUsingBP.test(e, empid)).map(empHike).forEach(printEmp);
 		System.out.println("--------------------------------------------");
-		
+
 		// Q9. Find employee with highest salary
-        System.out.println("Find employee with highest salary");
+		System.out.println("Find employee with highest salary");
 		Employee maxSalaryEmp = employees.stream().reduce(maxSalaryEmployee).get();
 		System.out.println(maxSalaryEmp);
 		System.out.println("--------------------------------------------");
-		
-		// Q10. Generate bonus according to dept and then add to the salary, then check whose salary id more than 3000
-		System.out.println("Generate bonus according to dept and then add to the salary, then check whose salary id more than 3000");
+
+		// Q10. Generate bonus according to dept and then add to the salary, then check
+		// whose salary id more than 3000
+		System.out.println(
+				"Generate bonus according to dept and then add to the salary, then check whose salary id more than 3000");
 		employees.stream().map(addBonusToSalary).filter(bonusAndSalMoreThan3000).forEach(printEmp);
 		System.out.println("--------------------------------------------");
-		
+
 		// Q11. Show salary with more than and less than 2000
 		System.out.println("Show employees with more than and less than 2000");
-		Map<Boolean,List<Employee>> empSalaryDivision = employees.stream().collect(Collectors.partitioningBy(empWithReqSal));
+		Map<Boolean, List<Employee>> empSalaryDivision = employees.stream()
+				.collect(Collectors.partitioningBy(empWithReqSal));
 		System.out.println("Show employees with more than 2000");
 		empSalaryDivision.get(true).forEach(printEmp);
 		System.out.println("Show employees with less than 2000");
 		empSalaryDivision.get(false).forEach(printEmp);
-		
+
 		sc.close();
 	}
 

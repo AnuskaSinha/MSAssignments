@@ -1,8 +1,9 @@
 package morganStanley_Day3;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
-public class Employee {
+public class Employee implements Comparator<Employee>{
 
 	private int id;
 	private String firstName;
@@ -26,6 +27,9 @@ public class Employee {
 		this.dateOfBirth = dateOfBirth;
 		this.salary = salary;
 		this.dept = dept;
+	}
+
+	public Employee() {
 	}
 
 	@Override
@@ -60,6 +64,11 @@ public class Employee {
 	
 	public void setSalary(Double salary) {
 		this.salary = salary;
+	}
+
+	@Override
+	public int compare(Employee e1, Employee e2) {
+		return e1.getDateOfBirth().getMonthValue() - e2.getDateOfBirth().getMonthValue();
 	}
 
 }
