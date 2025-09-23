@@ -2,7 +2,9 @@ package morganStanley_Day3;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -33,9 +35,22 @@ public class LambdaEX {
 			return random.ints(16, 0, chars.length()).mapToObj(i -> String.valueOf(chars.charAt(i)))
 					.collect(Collectors.joining());
 		};
+		
+		Supplier<Map<String, Double>> generateBonus = () -> {
+			Map<String, Double> bonusMap = new HashMap<>();
+			bonusMap.put("IT", 1000.0);
+			bonusMap.put("HR", 800.0);
+			bonusMap.put("Finance", 1200.0);
+			return bonusMap;
+		};
 
 		UserNameGenerator userNameGenerator = (firstName, lastName, yearBirth, empId) -> firstName + lastName
 				+ yearBirth + empId;
+		
+		BonusCalculator bonusCalculator = emp ->{
+			emp.setSalary(generateBonus.get().get(emp.getDept()) + emp.getSalary());
+			return emp;
+		};
 
 		// Q1. Sort the employees on basis of DateOfBirth Month wise using Comparator
 		System.out.println("Sort the employees on basis of DateOfBirth Month wise");
@@ -73,6 +88,11 @@ public class LambdaEX {
 								emp.getDateOfBirth().getYear(), emp.getId()),
 						passwordSupplier.get()))
 				.forEach(printUser);
+		System.out.println("--------------------------------------------");
+		
+		// Q5. BonusGenerator using custom Functional Interface
+		System.out.println("BonusGenerator using custom Functional Interface");
+		employees.stream().map(emp->bonusCalculator.calculateBonus(emp)).forEach(printEmp);
 		System.out.println("--------------------------------------------");
 
 		sc.close();
