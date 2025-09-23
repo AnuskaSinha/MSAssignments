@@ -75,6 +75,7 @@ public class OptionalEx {
 		System.out.println("--------------------------------------------");
 		
 		//Q5. nth Not-Null Optional value
+		System.out.println("Ex5: Nth non-empty Optional value");
 		List<Optional<String>> ex8 = Arrays.asList(Optional.of("Java"), Optional.empty(), Optional.of("SpringBoot"),
 				Optional.of("AI"), Optional.empty());
 		
@@ -86,6 +87,7 @@ public class OptionalEx {
 		System.out.println("--------------------------------------------");
 		
 		//Q6. last nth Not-Null Optional value
+		System.out.println("Ex6: Last Nth non-empty Optional value");
 		List<Optional<String>> ex9 = Arrays.asList(Optional.of("Java"), Optional.empty(), Optional.of("SpringBoot"),
 				Optional.of("AI"), Optional.empty());
 		Collections.reverse(ex9);
