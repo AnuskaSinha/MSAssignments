@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -15,7 +14,6 @@ public class LambdaEX {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
 		List<Employee> employees = Arrays.asList(
 				new Employee(101, "Anuska1", "Sinha1", LocalDate.of(1990, 5, 12), 2500, "IT"),
 				new Employee(102, "Anuska2", "Sinha2", LocalDate.of(1985, 3, 20), 1800, "HR"),
@@ -94,8 +92,6 @@ public class LambdaEX {
 		System.out.println("BonusGenerator using custom Functional Interface");
 		employees.stream().map(emp->bonusCalculator.calculateBonus(emp)).forEach(printEmp);
 		System.out.println("--------------------------------------------");
-
-		sc.close();
 
 	}
 
